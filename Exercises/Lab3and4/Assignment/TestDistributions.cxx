@@ -35,8 +35,8 @@ int main() {
     std::cout << "  Distribution Testing Program" << std::endl;
     std::cout << "========================================\n" << std::endl;
 
-    // Read mystery data
-    std::string datafile = "../Outputs/Data/MysteryData24011.txt";
+    // Read mystery data from the Data directory in repository root
+    std::string datafile = "../../../Data/MysteryData24011.txt";
     std::vector<double> mystery_data = readMysteryData(datafile);
 
     if (mystery_data.empty()) {
