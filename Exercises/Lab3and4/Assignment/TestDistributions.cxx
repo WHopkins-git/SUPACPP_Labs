@@ -40,6 +40,15 @@ int main() {
     std::string datafile;
     std::string data_dir = "../Outputs/data/";
 
+    // Check if directory exists
+    if (!std::filesystem::exists(data_dir)) {
+        std::cerr << "Error: Directory " << data_dir << " does not exist!" << std::endl;
+        std::cerr << "Please run the following first:" << std::endl;
+        std::cerr << "  cd .." << std::endl;
+        std::cerr << "  ./GenerateRandomData" << std::endl;
+        return 1;
+    }
+
     // Look for MysteryData*.txt file
     for (const auto& entry : std::filesystem::directory_iterator(data_dir)) {
         if (entry.path().filename().string().find("MysteryData") != std::string::npos &&
