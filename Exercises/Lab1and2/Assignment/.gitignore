@@ -1,0 +1,8 @@
+# Compiled executables
+AnalyseData
+
+# Object files
+*.o
+
+# Output files
+output_*.txt
