@@ -48,8 +48,3 @@ Results are saved to:
 - `output_magnitudes.txt` - Magnitude calculations
 - `output_fit_results.txt` - Least squares fit parameters and chi-squared
 - `output_power_results.txt` - Power function results
-
-## Notes
-- The program handles edge cases (e.g., requesting more lines than available)
-- Power calculations use recursion without built-in power functions
-- Chi-squared analysis includes degrees of freedom correction
