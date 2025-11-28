@@ -33,18 +33,27 @@ This program implements several statistical distribution classes that inherit fr
 
 ## How to Compile
 ```bash
+cd Assignment
 make
 ```
 
 ## How to Run
+
+**IMPORTANT:** First generate mystery data by running:
 ```bash
+cd ..  # Go to Lab3and4 directory
+./GenerateRandomData
+```
+
+This creates a file `Outputs/data/MysteryDataXXXXX.txt` with random data.
+
+Then run the analysis:
+```bash
+cd Assignment
 ./TestDistributions
 ```
 
-or simply:
-```bash
-make run
-```
+The program will automatically find and use the generated mystery data file.
 
 ## Output
 Results are saved to `../Outputs/png/`:
