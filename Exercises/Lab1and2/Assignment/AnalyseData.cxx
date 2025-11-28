@@ -1,6 +1,6 @@
 // AnalyseData.cxx
-// Main steering script for data analysis
-// Author: SUPA C++ Student
+// 
+// Author: William Hopkins
 // Date: 28th November 2025
 //
 // This program reads (x,y) coordinate data from a file and performs various
