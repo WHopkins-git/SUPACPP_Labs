@@ -62,8 +62,20 @@ Integration by hand (output needed to normalise function when plotting)
 ###################
 */ 
 double FiniteFunction::integrate(int Ndiv){ //private
-  //ToDo write an integrator
-  return -99;  
+  // Numerical integration using trapezoidal rule
+  double step = (m_RMax - m_RMin) / (double)Ndiv;
+  double sum = 0.0;
+
+  // Sum up the areas of trapezoids
+  for (int i = 0; i < Ndiv; i++) {
+    double x1 = m_RMin + i * step;
+    double x2 = m_RMin + (i + 1) * step;
+    double y1 = this->callFunction(x1);
+    double y2 = this->callFunction(x2);
+    sum += (y1 + y2) * step / 2.0;  // Area of trapezoid
+  }
+
+  return sum;
 }
 double FiniteFunction::integral(int Ndiv) { //public
   if (Ndiv <= 0){

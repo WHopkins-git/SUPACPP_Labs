@@ -1,0 +1,8 @@
+# Compiled executables
+TestDistributions
+
+# Object files
+*.o
+
+# Output files and directories
+../Outputs/
