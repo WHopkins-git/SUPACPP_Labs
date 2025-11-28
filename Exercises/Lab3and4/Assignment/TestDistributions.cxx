@@ -9,6 +9,7 @@
 #include <fstream>
 #include <vector>
 #include <string>
+#include <filesystem>
 
 // Helper function to read data from mystery data file
 std::vector<double> readMysteryData(const std::string& filename) {
@@ -35,8 +36,26 @@ int main() {
     std::cout << "  Distribution Testing Program" << std::endl;
     std::cout << "========================================\n" << std::endl;
 
-    // Read mystery data from the Data directory in repository root
-    std::string datafile = "../../../Data/MysteryData24011.txt";
+    // Find the mystery data file in Outputs/data/ directory
+    std::string datafile;
+    std::string data_dir = "../Outputs/data/";
+
+    // Look for MysteryData*.txt file
+    for (const auto& entry : std::filesystem::directory_iterator(data_dir)) {
+        if (entry.path().filename().string().find("MysteryData") != std::string::npos &&
+            entry.path().extension() == ".txt") {
+            datafile = entry.path().string();
+            std::cout << "Found mystery data file: " << entry.path().filename() << "\n" << std::endl;
+            break;
+        }
+    }
+
+    if (datafile.empty()) {
+        std::cerr << "Error: No mystery data file found in " << data_dir << std::endl;
+        std::cerr << "Please run ../GenerateRandomData first!" << std::endl;
+        return 1;
+    }
+
     std::vector<double> mystery_data = readMysteryData(datafile);
 
     if (mystery_data.empty()) {
