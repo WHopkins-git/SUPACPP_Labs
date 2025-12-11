@@ -36,9 +36,9 @@ int main() {
     std::cout << "  Distribution Testing Program" << std::endl;
     std::cout << "========================================\n" << std::endl;
 
-    // Find the mystery data file in Outputs/data/ directory
+    // Find the mystery data file in Data/ directory (at repository root)
     std::string datafile;
-    std::string data_dir = "../Outputs/data/";
+    std::string data_dir = "../../../Data/";
 
     // Check if directory exists
     if (!std::filesystem::exists(data_dir)) {
@@ -88,8 +88,8 @@ int main() {
 
         NormalDistribution normal(mean, sigma, range_min, range_max, "../Outputs/png/Normal_Test");
 
-        // Calculate integral
-        double integral = normal.integral(n_divisions);
+        // Calculate integral to cache normalization
+        normal.integral(n_divisions);
         normal.printInfo();
 
         // Plot function with data
@@ -109,7 +109,7 @@ int main() {
 
         CauchyLorentzDistribution cauchy(x0, gamma, range_min, range_max, "../Outputs/png/CauchyLorentz_Test");
 
-        double integral = cauchy.integral(n_divisions);
+        cauchy.integral(n_divisions);
         cauchy.printInfo();
 
         cauchy.plotFunction();
@@ -131,7 +131,7 @@ int main() {
         CrystalBallDistribution crystal(mean, sigma, alpha, n, range_min, range_max,
                                        "../Outputs/png/CrystalBall_Test");
 
-        double integral = crystal.integral(n_divisions);
+        crystal.integral(n_divisions);
         crystal.printInfo();
 
         crystal.plotFunction();
@@ -152,7 +152,7 @@ int main() {
         CauchyLorentzDistribution best_fit(x0, gamma, range_min, range_max,
                                           "../Outputs/png/BestFit_CauchyLorentz");
 
-        double integral = best_fit.integral(n_divisions);
+        best_fit.integral(n_divisions);
         best_fit.printInfo();
 
         best_fit.plotFunction();
