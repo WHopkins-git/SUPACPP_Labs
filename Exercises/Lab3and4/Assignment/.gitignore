@@ -1,5 +1,6 @@
 # Compiled executables
 TestDistributions
+TestDefaultFunction
 
 # Object files
 *.o
