@@ -45,7 +45,7 @@ cd ..  # Go to Lab3and4 directory
 ./GenerateRandomData
 ```
 
-This creates a file `Outputs/data/MysteryDataXXXXX.txt` with random data.
+This creates a file `Data/MysteryDataXXXXX.txt` (at the repository root) with random data.
 
 Then run the analysis:
 ```bash
