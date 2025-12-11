@@ -36,6 +36,13 @@ int main() {
     std::cout << "  Distribution Testing Program" << std::endl;
     std::cout << "========================================\n" << std::endl;
 
+    // Create Plots directory if it doesn't exist
+    std::string plots_dir = "Plots";
+    if (!std::filesystem::exists(plots_dir)) {
+        std::filesystem::create_directories(plots_dir);
+        std::cout << "Created " << plots_dir << "/ directory for output plots\n" << std::endl;
+    }
+
     // Find the mystery data file in Data/ directory (at repository root)
     std::string datafile;
     std::string data_dir = "../../../Data/";
@@ -86,7 +93,7 @@ int main() {
         double mean = 0.0;
         double sigma = 2.0;
 
-        NormalDistribution normal(mean, sigma, range_min, range_max, "../Outputs/png/Normal_Test");
+        NormalDistribution normal(mean, sigma, range_min, range_max, "Normal_Test");
 
         // Calculate integral to cache normalization
         normal.integral(n_divisions);
@@ -107,7 +114,7 @@ int main() {
         double x0 = 0.0;
         double gamma = 1.0;
 
-        CauchyLorentzDistribution cauchy(x0, gamma, range_min, range_max, "../Outputs/png/CauchyLorentz_Test");
+        CauchyLorentzDistribution cauchy(x0, gamma, range_min, range_max, "CauchyLorentz_Test");
 
         cauchy.integral(n_divisions);
         cauchy.printInfo();
@@ -129,7 +136,7 @@ int main() {
         double n = 2.0;
 
         CrystalBallDistribution crystal(mean, sigma, alpha, n, range_min, range_max,
-                                       "../Outputs/png/CrystalBall_Test");
+                                       "CrystalBall_Test");
 
         crystal.integral(n_divisions);
         crystal.printInfo();
@@ -150,7 +157,7 @@ int main() {
         double gamma = 1.0;
 
         CauchyLorentzDistribution best_fit(x0, gamma, range_min, range_max,
-                                          "../Outputs/png/BestFit_CauchyLorentz");
+                                          "BestFit_CauchyLorentz");
 
         best_fit.integral(n_divisions);
         best_fit.printInfo();
@@ -175,7 +182,7 @@ int main() {
 
     std::cout << "\n========================================" << std::endl;
     std::cout << "All tests complete!" << std::endl;
-    std::cout << "Check Outputs/png/ for plots" << std::endl;
+    std::cout << "Check Plots/ for plots" << std::endl;
     std::cout << "========================================" << std::endl;
 
     return 0;

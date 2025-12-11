@@ -14,7 +14,7 @@ const double PI = 3.14159265358979323846;
 NormalDistribution::NormalDistribution(double mean, double sigma, double range_min,
                                        double range_max, std::string outfile)
     : FiniteFunction(range_min, range_max, outfile), m_mean(mean), m_sigma(sigma) {
-    m_FunctionName = "Normal";
+    // m_FunctionName already set by parent constructor from outfile
 }
 
 NormalDistribution::~NormalDistribution() {}
@@ -77,7 +77,7 @@ CauchyLorentzDistribution::CauchyLorentzDistribution(double x0, double gamma,
                                                      double range_min, double range_max,
                                                      std::string outfile)
     : FiniteFunction(range_min, range_max, outfile), m_x0(x0), m_gamma(gamma) {
-    m_FunctionName = "CauchyLorentz";
+    // m_FunctionName already set by parent constructor from outfile
 }
 
 CauchyLorentzDistribution::~CauchyLorentzDistribution() {}
@@ -135,7 +135,7 @@ CrystalBallDistribution::CrystalBallDistribution(double mean, double sigma, doub
                                                  std::string outfile)
     : FiniteFunction(range_min, range_max, outfile),
       m_mean(mean), m_sigma(sigma), m_alpha(alpha), m_n(n) {
-    m_FunctionName = "CrystalBall";
+    // m_FunctionName already set by parent constructor from outfile
     computeConstants();
 }
 

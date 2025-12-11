@@ -193,7 +193,7 @@ void FiniteFunction::generatePlot(Gnuplot &gp){
 
   if (m_plotfunction==true && m_plotdatapoints==true && m_plotsamplepoints==true){
     gp << "set terminal pngcairo\n";
-    gp << "set output 'Outputs/png/"<<m_FunctionName<<".png'\n"; 
+    gp << "set output 'Plots/"<<m_FunctionName<<".png'\n"; 
     gp << "set xrange ["<<m_RMin<<":"<<m_RMax<<"]\n";
     gp << "set style line 1 lt 1 lw 2 pi 1 ps 0\n";
     gp << "plot '-' with linespoints ls 1 title '"<<m_FunctionName<<"', '-' with points ps 2 lc rgb 'blue' title 'sampled data', '-' with points ps 1 lc rgb 'black' pt 7 title 'data'\n";
@@ -203,7 +203,7 @@ void FiniteFunction::generatePlot(Gnuplot &gp){
   }
   else if (m_plotfunction==true && m_plotdatapoints==true){
     gp << "set terminal pngcairo\n";
-    gp << "set output 'Outputs/png/"<<m_FunctionName<<".png'\n"; 
+    gp << "set output 'Plots/"<<m_FunctionName<<".png'\n"; 
     gp << "set xrange ["<<m_RMin<<":"<<m_RMax<<"]\n";
     gp << "set style line 1 lt 1 lw 2 pi 1 ps 0\n";
     gp << "plot '-' with linespoints ls 1 title '"<<m_FunctionName<<"', '-' with points ps 1 lc rgb 'black' pt 7 title 'data'\n";
@@ -212,7 +212,7 @@ void FiniteFunction::generatePlot(Gnuplot &gp){
   }
   else if (m_plotfunction==true && m_plotsamplepoints==true){
     gp << "set terminal pngcairo\n";
-    gp << "set output 'Outputs/png/"<<m_FunctionName<<".png'\n"; 
+    gp << "set output 'Plots/"<<m_FunctionName<<".png'\n"; 
     gp << "set xrange ["<<m_RMin<<":"<<m_RMax<<"]\n";
     gp << "set style line 1 lt 1 lw 2 pi 1 ps 0\n";
     gp << "plot '-' with linespoints ls 1 title '"<<m_FunctionName<<"', '-' with points ps 2 lc rgb 'blue' title 'sampled data'\n";
@@ -221,7 +221,7 @@ void FiniteFunction::generatePlot(Gnuplot &gp){
   }
   else if (m_plotfunction==true){
     gp << "set terminal pngcairo\n";
-    gp << "set output 'Outputs/png/"<<m_FunctionName<<".png'\n"; 
+    gp << "set output 'Plots/"<<m_FunctionName<<".png'\n"; 
     gp << "set xrange ["<<m_RMin<<":"<<m_RMax<<"]\n";
     gp << "set style line 1 lt 1 lw 2 pi 1 ps 0\n";
     gp << "plot '-' with linespoints ls 1 title 'function'\n";
@@ -230,7 +230,7 @@ void FiniteFunction::generatePlot(Gnuplot &gp){
 
   else if (m_plotdatapoints == true){
     gp << "set terminal pngcairo\n";
-    gp << "set output 'Outputs/png/"<<m_FunctionName<<".png'\n"; 
+    gp << "set output 'Plots/"<<m_FunctionName<<".png'\n"; 
     gp << "set xrange ["<<m_RMin<<":"<<m_RMax<<"]\n";
     gp << "plot '-' with points ps 1 lc rgb 'black' pt 7 title 'data'\n";
     gp.send1d(m_data);
@@ -238,7 +238,7 @@ void FiniteFunction::generatePlot(Gnuplot &gp){
 
   else if (m_plotsamplepoints == true){
     gp << "set terminal pngcairo\n";
-    gp << "set output 'Outputs/png/"<<m_FunctionName<<".png'\n"; 
+    gp << "set output 'Plots/"<<m_FunctionName<<".png'\n"; 
     gp << "set xrange ["<<m_RMin<<":"<<m_RMax<<"]\n";
     gp << "plot '-' with points ps 2 lc rgb 'blue' title 'sampled data'\n";
     gp.send1d(m_samples);
