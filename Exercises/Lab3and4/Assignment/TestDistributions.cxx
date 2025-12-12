@@ -1,7 +1,7 @@
 // TestDistributions.cxx
-// Main program to test custom distributions and find best fit for mystery data
-// Author: SUPA C++ Student
-// Date: 28th November 2025
+// Test program for distribution fitting
+// William Hopkins
+// December 2024
 
 #include "../FiniteFunctions.h"
 #include "Distributions.h"
@@ -11,7 +11,7 @@
 #include <string>
 #include <filesystem>
 
-// Helper function to read data from mystery data file
+// Read data from file
 std::vector<double> readMysteryData(const std::string& filename) {
     std::vector<double> data;
     std::ifstream file(filename);
@@ -36,12 +36,11 @@ int main() {
     std::cout << "  Distribution Testing Program" << std::endl;
     std::cout << "========================================\n" << std::endl;
 
-    // Create Plots directory if it doesn't exist
     if (!std::filesystem::exists("Plots")) {
         std::filesystem::create_directories("Plots");
     }
 
-    // Specify the mystery data file to use
+    // Load mystery data
     std::string datafile = "../../../Data/MysteryData20000.txt";
     std::vector<double> mystery_data = readMysteryData(datafile);
 
@@ -50,7 +49,7 @@ int main() {
         return 1;
     }
 
-    // Define range and parameters
+    // Set parameters
     double range_min = -10.0;
     double range_max = 10.0;
     int n_divisions = 1000;

@@ -1,7 +1,7 @@
 // Distributions.h
-// Custom distribution classes inheriting from FiniteFunction
-// Author: SUPA C++ Student
-// Date: 28th November 2025
+// Custom distribution classes
+// William Hopkins
+// December 2024
 
 #ifndef DISTRIBUTIONS_H
 #define DISTRIBUTIONS_H
@@ -10,7 +10,7 @@
 #include <vector>
 #include <random>
 
-// Normal (Gaussian) distribution
+// Normal distribution
 class NormalDistribution : public FiniteFunction {
 public:
     NormalDistribution(double mean, double sigma, double range_min, double range_max, std::string outfile);

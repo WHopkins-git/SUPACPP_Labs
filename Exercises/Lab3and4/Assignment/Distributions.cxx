@@ -1,6 +1,6 @@
 // Distributions.cxx
-// Implementation of custom distribution classes
-// Date: 28th November 2025
+// William Hopkins
+// December 2024
 
 #include "Distributions.h"
 #include <cmath>
@@ -9,12 +9,11 @@
 
 const double PI = 3.14159265358979323846;
 
-// ========== Normal Distribution ==========
+// Normal Distribution
 
 NormalDistribution::NormalDistribution(double mean, double sigma, double range_min,
                                        double range_max, std::string outfile)
     : FiniteFunction(range_min, range_max, outfile), m_mean(mean), m_sigma(sigma) {
-    // m_FunctionName already set by parent constructor from outfile
 }
 
 NormalDistribution::~NormalDistribution() {}
@@ -39,33 +38,27 @@ std::vector<double> NormalDistribution::metropolisSample(int n_samples, double p
     std::uniform_real_distribution<> uniform(m_RMin, m_RMax);
     std::uniform_real_distribution<> uniform_01(0.0, 1.0);
 
-    // Start with random point in range
     double x_current = uniform(gen);
     int accepted = 0;
 
     for (int i = 0; i < n_samples; i++) {
-        // Propose new point from normal distribution centered at current point
         std::normal_distribution<> proposal(x_current, proposal_width);
         double x_proposed = proposal(gen);
 
-        // Keep proposed point within range
         if (x_proposed < m_RMin || x_proposed > m_RMax) {
             samples.push_back(x_current);
             continue;
         }
 
-        // Calculate acceptance ratio A = min(f(y)/f(x_i), 1)
         double f_current = this->callFunction(x_current);
         double f_proposed = this->callFunction(x_proposed);
         double acceptance = std::min(f_proposed / f_current, 1.0);
 
-        // Accept or reject
         double random_uniform = uniform_01(gen);
         if (random_uniform < acceptance) {
-            x_current = x_proposed;  // Accept
+            x_current = x_proposed;
             accepted++;
         }
-        // If rejected, x_current stays the same
 
         samples.push_back(x_current);
     }
@@ -76,7 +69,7 @@ std::vector<double> NormalDistribution::metropolisSample(int n_samples, double p
     return samples;
 }
 
-// ========== Cauchy-Lorentz Distribution ==========
+// Cauchy-Lorentz Distribution
 
 CauchyLorentzDistribution::CauchyLorentzDistribution(double x0, double gamma,
                                                      double range_min, double range_max,
@@ -138,7 +131,7 @@ std::vector<double> CauchyLorentzDistribution::metropolisSample(int n_samples, d
     return samples;
 }
 
-// ========== Crystal Ball Distribution ==========
+// Crystal Ball Distribution
 
 CrystalBallDistribution::CrystalBallDistribution(double mean, double sigma, double alpha,
                                                  double n, double range_min, double range_max,
@@ -152,7 +145,7 @@ CrystalBallDistribution::CrystalBallDistribution(double mean, double sigma, doub
 CrystalBallDistribution::~CrystalBallDistribution() {}
 
 void CrystalBallDistribution::computeConstants() {
-    // Pre-compute the constants A, B, C, D, N for efficiency
+    // Compute constants A, B, N
     double abs_alpha = fabs(m_alpha);
 
     // A = (n/|α|)^n * exp(-|α|²/2)

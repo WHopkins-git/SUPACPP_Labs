@@ -1,8 +1,7 @@
 // TestDefaultFunction.cxx
-// Test program for default FiniteFunction class
-// Tests the invxsquared function: f(x) = 1/(1+x^2)
-// Author: SUPA C++ Student
-// Date: 11th December 2025
+// Test default FiniteFunction class
+// William Hopkins
+// December 2024
 
 #include "../FiniteFunctions.h"
 #include <iostream>
@@ -11,7 +10,7 @@
 #include <string>
 #include <filesystem>
 
-// Helper function to read data from mystery data file
+// Read data from file
 std::vector<double> readMysteryData(const std::string& filename) {
     std::vector<double> data;
     std::ifstream file(filename);
@@ -37,15 +36,11 @@ int main() {
     std::cout << "  Function: f(x) = 1/(1+x^2)" << std::endl;
     std::cout << "========================================\n" << std::endl;
 
-    // Create Plots directory if it doesn't exist
     if (!std::filesystem::exists("Plots")) {
         std::filesystem::create_directories("Plots");
     }
 
-    // Specify the mystery data file to use
     std::string datafile = "../../../Data/MysteryData22012.txt";
-
-    // Load mystery data
     std::vector<double> mystery_data = readMysteryData(datafile);
 
     if (mystery_data.empty()) {
@@ -53,7 +48,6 @@ int main() {
         return 1;
     }
 
-    // Create FiniteFunction object
     {
         FiniteFunction default_function(-10.0, 10.0, "DefaultFunction");
 
@@ -61,14 +55,13 @@ int main() {
         default_function.printInfo();
         std::cout << std::endl;
 
-        // Normalize the function
         default_function.integral(1000);
 
         std::cout << "After normalization:" << std::endl;
         default_function.printInfo();
         std::cout << std::endl;
 
-        // Plot the function and data
+        // Plot function and data
         default_function.plotFunction();
         default_function.plotData(mystery_data, 50);
 
