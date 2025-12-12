@@ -60,8 +60,8 @@ int main() {
     std::cout << "Testing 1: Normal Distribution" << std::endl;
     std::cout << "==================================================" << std::endl;
     {
-        double mean = 0.0;
-        double sigma = 2.0;
+        double mean = -2.0;
+        double sigma = 1.0;
 
         NormalDistribution normal(mean, sigma, range_min, range_max, "Normal_Test");
         normal.integral(n_divisions);
@@ -111,16 +111,13 @@ int main() {
     }
 
     std::cout << "\n==================================================" << std::endl;
-    std::cout << "Best Fit: Crystal Ball Distribution" << std::endl;
+    std::cout << "Best Fit: Normal Distribution" << std::endl;
     std::cout << "==================================================" << std::endl;
     {
         double mean = -2.0;
         double sigma = 1.0;
-        double alpha = 80.0;
-        double n = 2.5;
 
-        CrystalBallDistribution best_fit(mean, sigma, alpha, n, range_min, range_max,
-                                        "BestFit_CrystalBall");
+        NormalDistribution best_fit(mean, sigma, range_min, range_max, "BestFit_Normal");
         best_fit.integral(n_divisions);
         best_fit.printInfo();
 

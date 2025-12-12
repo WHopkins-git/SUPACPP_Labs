@@ -41,6 +41,7 @@ std::vector<double> NormalDistribution::metropolisSample(int n_samples, double p
 
     // Start with random point in range
     double x_current = uniform(gen);
+    int accepted = 0;
 
     for (int i = 0; i < n_samples; i++) {
         // Propose new point from normal distribution centered at current point
@@ -62,11 +63,15 @@ std::vector<double> NormalDistribution::metropolisSample(int n_samples, double p
         double random_uniform = uniform_01(gen);
         if (random_uniform < acceptance) {
             x_current = x_proposed;  // Accept
+            accepted++;
         }
         // If rejected, x_current stays the same
 
         samples.push_back(x_current);
     }
+
+    double acceptance_rate = 100.0 * accepted / n_samples;
+    std::cout << "Acceptance rate: " << acceptance_rate << "%" << std::endl;
 
     return samples;
 }
@@ -103,6 +108,7 @@ std::vector<double> CauchyLorentzDistribution::metropolisSample(int n_samples, d
     std::uniform_real_distribution<> uniform_01(0.0, 1.0);
 
     double x_current = uniform(gen);
+    int accepted = 0;
 
     for (int i = 0; i < n_samples; i++) {
         std::normal_distribution<> proposal(x_current, proposal_width);
@@ -120,10 +126,14 @@ std::vector<double> CauchyLorentzDistribution::metropolisSample(int n_samples, d
         double random_uniform = uniform_01(gen);
         if (random_uniform < acceptance) {
             x_current = x_proposed;
+            accepted++;
         }
 
         samples.push_back(x_current);
     }
+
+    double acceptance_rate = 100.0 * accepted / n_samples;
+    std::cout << "Acceptance rate: " << acceptance_rate << "%" << std::endl;
 
     return samples;
 }
@@ -199,6 +209,7 @@ std::vector<double> CrystalBallDistribution::metropolisSample(int n_samples, dou
     std::uniform_real_distribution<> uniform_01(0.0, 1.0);
 
     double x_current = uniform(gen);
+    int accepted = 0;
 
     for (int i = 0; i < n_samples; i++) {
         std::normal_distribution<> proposal(x_current, proposal_width);
@@ -216,10 +227,14 @@ std::vector<double> CrystalBallDistribution::metropolisSample(int n_samples, dou
         double random_uniform = uniform_01(gen);
         if (random_uniform < acceptance) {
             x_current = x_proposed;
+            accepted++;
         }
 
         samples.push_back(x_current);
     }
+
+    double acceptance_rate = 100.0 * accepted / n_samples;
+    std::cout << "Acceptance rate: " << acceptance_rate << "%" << std::endl;
 
     return samples;
 }
