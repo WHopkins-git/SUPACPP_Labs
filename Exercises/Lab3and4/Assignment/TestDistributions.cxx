@@ -56,21 +56,30 @@ int main() {
         return 1;
     }
 
-    // Look for MysteryData*.txt file
+    // Look for MysteryData*.txt files and use the most recent one
+    std::filesystem::file_time_type latest_time;
+    bool found_file = false;
+
     for (const auto& entry : std::filesystem::directory_iterator(data_dir)) {
         if (entry.path().filename().string().find("MysteryData") != std::string::npos &&
             entry.path().extension() == ".txt") {
-            datafile = entry.path().string();
-            std::cout << "Found mystery data file: " << entry.path().filename() << "\n" << std::endl;
-            break;
+            auto file_time = std::filesystem::last_write_time(entry);
+            if (!found_file || file_time > latest_time) {
+                latest_time = file_time;
+                datafile = entry.path().string();
+                found_file = true;
+            }
         }
     }
 
-    if (datafile.empty()) {
+    if (!found_file) {
         std::cerr << "Error: No mystery data file found in " << data_dir << std::endl;
         std::cerr << "Please run ../GenerateRandomData first!" << std::endl;
         return 1;
     }
+
+    std::cout << "Using most recent mystery data file: "
+              << std::filesystem::path(datafile).filename() << "\n" << std::endl;
 
     std::vector<double> mystery_data = readMysteryData(datafile);
 
