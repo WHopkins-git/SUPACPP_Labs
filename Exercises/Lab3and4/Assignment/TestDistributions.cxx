@@ -42,7 +42,7 @@ int main() {
     }
 
     // Specify the mystery data file to use
-    std::string datafile = "../../../Data/MysteryData22012.txt";
+    std::string datafile = "../../../Data/MysteryData20000.txt";
     std::vector<double> mystery_data = readMysteryData(datafile);
 
     if (mystery_data.empty()) {
@@ -77,8 +77,8 @@ int main() {
     std::cout << "Testing 2: Cauchy-Lorentz Distribution" << std::endl;
     std::cout << "==================================================" << std::endl;
     {
-        double x0 = 0.0;
-        double gamma = 1.0;
+        double x0 = -2.0;
+        double gamma = 0.82;
 
         CauchyLorentzDistribution cauchy(x0, gamma, range_min, range_max, "CauchyLorentz_Test");
         cauchy.integral(n_divisions);
@@ -94,10 +94,10 @@ int main() {
     std::cout << "Testing 3: Crystal Ball Distribution" << std::endl;
     std::cout << "==================================================" << std::endl;
     {
-        double mean = 0.0;
-        double sigma = 1.5;
-        double alpha = 1.5;
-        double n = 2.0;
+        double mean = -2.0;
+        double sigma = 1.0;
+        double alpha = 80.0;
+        double n = 2.5;
 
         CrystalBallDistribution crystal(mean, sigma, alpha, n, range_min, range_max,
                                        "CrystalBall_Test");
