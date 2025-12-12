@@ -38,49 +38,12 @@ int main() {
     std::cout << "========================================\n" << std::endl;
 
     // Create Plots directory if it doesn't exist
-    std::string plots_dir = "Plots";
-    if (!std::filesystem::exists(plots_dir)) {
-        std::filesystem::create_directories(plots_dir);
-        std::cout << "Created " << plots_dir << "/ directory for output plots\n" << std::endl;
+    if (!std::filesystem::exists("Plots")) {
+        std::filesystem::create_directories("Plots");
     }
 
-    // Find the mystery data file in Data/ directory (at repository root)
-    std::string datafile;
-    std::string data_dir = "../../../Data/";
-
-    // Check if directory exists
-    if (!std::filesystem::exists(data_dir)) {
-        std::cerr << "Error: Directory " << data_dir << " does not exist!" << std::endl;
-        std::cerr << "Please run the following first:" << std::endl;
-        std::cerr << "  cd .." << std::endl;
-        std::cerr << "  ./GenerateRandomData" << std::endl;
-        return 1;
-    }
-
-    // Look for MysteryData*.txt files and use the most recent one
-    std::filesystem::file_time_type latest_time;
-    bool found_file = false;
-
-    for (const auto& entry : std::filesystem::directory_iterator(data_dir)) {
-        if (entry.path().filename().string().find("MysteryData") != std::string::npos &&
-            entry.path().extension() == ".txt") {
-            auto file_time = std::filesystem::last_write_time(entry);
-            if (!found_file || file_time > latest_time) {
-                latest_time = file_time;
-                datafile = entry.path().string();
-                found_file = true;
-            }
-        }
-    }
-
-    if (!found_file) {
-        std::cerr << "Error: No mystery data file found in " << data_dir << std::endl;
-        std::cerr << "Please run ../GenerateRandomData first!" << std::endl;
-        return 1;
-    }
-
-    std::cout << "Using most recent mystery data file: "
-              << std::filesystem::path(datafile).filename() << "\n" << std::endl;
+    // Specify the mystery data file to use
+    std::string datafile = "../../../Data/MysteryData22012.txt";
 
     // Load mystery data
     std::vector<double> mystery_data = readMysteryData(datafile);
@@ -90,37 +53,27 @@ int main() {
         return 1;
     }
 
-    // Create FiniteFunction object with explicit parameters
-    // Uses range [-10, 10] and invxsquared function: f(x) = 1/(1+x^2)
+    // Create FiniteFunction object
     {
         FiniteFunction default_function(-10.0, 10.0, "DefaultFunction");
 
-        // Print function information
         std::cout << "=== Default FiniteFunction ===" << std::endl;
         default_function.printInfo();
         std::cout << std::endl;
 
-        // Calculate integral for normalization
-        int n_divisions = 1000;
-        default_function.integral(n_divisions);
+        // Normalize the function
+        default_function.integral(1000);
 
         std::cout << "After normalization:" << std::endl;
         default_function.printInfo();
         std::cout << std::endl;
 
-        // Plot the function (uses default range from constructor)
+        // Plot the function and data
         default_function.plotFunction();
-
-        // Plot the data alongside the function
-        // Using 50 bins for histogram
-        // Make a copy to avoid any potential reference issues
-        std::vector<double> data_copy = mystery_data;
-        int n_bins = 50;
-        default_function.plotData(data_copy, n_bins);
+        default_function.plotData(mystery_data, 50);
 
         std::cout << "\n========================================" << std::endl;
         std::cout << "Plot generation in progress..." << std::endl;
-        // Destructor will be called here, which generates the plot
     }
 
     std::cout << "Plot saved to Plots/DefaultFunction.png" << std::endl;
