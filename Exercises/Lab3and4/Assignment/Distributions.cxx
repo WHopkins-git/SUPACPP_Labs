@@ -1,6 +1,6 @@
 // Distributions.cxx
 // William Hopkins
-// December 2024
+// December 2025
 
 #include "Distributions.h"
 #include <cmath>

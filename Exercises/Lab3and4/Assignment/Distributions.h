@@ -1,7 +1,7 @@
 // Distributions.h
 // Custom distribution classes
 // William Hopkins
-// December 2024
+// December 2025
 
 #ifndef DISTRIBUTIONS_H
 #define DISTRIBUTIONS_H

@@ -1,7 +1,7 @@
 // TestDistributions.cxx
 // Test program for distribution fitting
 // William Hopkins
-// December 2024
+// December 2025
 
 #include "../FiniteFunctions.h"
 #include "Distributions.h"

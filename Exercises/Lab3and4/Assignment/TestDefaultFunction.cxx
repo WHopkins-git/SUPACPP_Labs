@@ -1,7 +1,7 @@
 // TestDefaultFunction.cxx
 // Test default FiniteFunction class
 // William Hopkins
-// December 2024
+// December 2025
 
 #include "../FiniteFunctions.h"
 #include <iostream>
