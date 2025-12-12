@@ -1,4 +1,6 @@
 # Assignment 2 - Distribution Fitting and Sampling
+William Hopkins
+December 2025
 
 ## Overview
 This program implements several statistical distribution classes that inherit from the `FiniteFunction` base class. The goal is to identify which distribution best matches mystery data and then sample from it using the Metropolis algorithm.
@@ -6,7 +8,8 @@ This program implements several statistical distribution classes that inherit fr
 ## Files Included
 - `Distributions.h` - Header file for custom distribution classes
 - `Distributions.cxx` - Implementation of Normal, Cauchy-Lorentz, and Crystal Ball distributions
-- `TestDistributions.cxx` - Main test program
+- `TestDistributions.cxx` - Main test program for distributions
+- `TestDefaultFunction.cxx` - Test program for default FiniteFunction
 - `Makefile` - Build automation
 - `README.md` - This file
 
@@ -26,10 +29,10 @@ This program implements several statistical distribution classes that inherit fr
 - Parameters: mean, sigma, alpha, n
 
 ## Features
-- **Numerical Integration**: Fixed implementation using trapezoidal rule
-- **Metropolis Sampling**: Generates pseudo-random samples from any distribution
+- **Numerical Integration**: Trapezoidal rule for normalization
+- **Metropolis Sampling**: Generates samples from any distribution with acceptance rate tracking
 - **Automatic Plotting**: Creates plots comparing functions with data
-- **Parameter Tuning**: Easy to adjust distribution parameters
+- **Parameter Tuning**: Easy to adjust distribution parameters in code
 
 ## How to Compile
 ```bash
@@ -37,44 +40,52 @@ cd Assignment
 make
 ```
 
+This builds both `TestDistributions` and `TestDefaultFunction`.
+
 ## How to Run
 
-**IMPORTANT:** First generate mystery data by running:
+### Test Default Function
 ```bash
-cd ..  # Go to Lab3and4 directory
-./GenerateRandomData
+./TestDefaultFunction
 ```
+Tests the base FiniteFunction class with the invxsquared function f(x) = 1/(1+x²).
 
-This creates a file `Data/MysteryDataXXXXX.txt` (at the repository root) with random data.
-
-Then run the analysis:
+### Test Distributions
 ```bash
-cd Assignment
 ./TestDistributions
 ```
+Tests all three distributions and performs Metropolis sampling on the best fit.
 
-The program will automatically find and use the generated mystery data file.
+## Data Files
+The programs use mystery data files from `../../../Data/`:
+- TestDistributions uses `MysteryData20000.txt`
+- TestDefaultFunction uses `MysteryData22012.txt`
 
 ## Output
-Results are saved to `../Outputs/png/`:
-- `Normal_Test.png` - Normal distribution vs. data
-- `CauchyLorentz_Test.png` - Cauchy-Lorentz distribution vs. data
-- `CrystalBall_Test.png` - Crystal Ball distribution vs. data
-- `BestFit_CauchyLorentz.png` - Best fit with sampled data (blue points)
+Results are saved to `Plots/`:
+- `DefaultFunction.png` - Default FiniteFunction test
+- `NormalTest.png` - Normal distribution vs. data
+- `CauchyLorentzTest.png` - Cauchy-Lorentz distribution vs. data
+- `CrystalBallTest.png` - Crystal Ball distribution vs. data
+- `BestFitNormal.png` - Best fit with sampled data (blue points)
 
 ## Mystery Data Analysis
-After testing all three distributions, the **Cauchy-Lorentz distribution** appears to best match the mystery data. This makes sense as the data shows heavy tails characteristic of the Cauchy distribution.
+After testing all three distributions, the **Normal distribution** with mean=-2.0 and sigma=1.0 best matches the mystery data.
 
 ## Metropolis Algorithm
 The sampling uses the Metropolis-Hastings algorithm:
 1. Start at random point in range
-2. Propose new point from normal distribution
+2. Propose new point from normal distribution (width = 1.5)
 3. Accept with probability min(f(y)/f(x), 1)
-4. Repeat for desired number of samples
+4. Repeat for 10,000 samples
 
-The proposal width can be tuned for better performance (currently set to 1.5 for good acceptance rate).
+The algorithm prints the acceptance rate (typically ~58% for these parameters, which is optimal).
 
-## Notes
-- Integration uses 1000 divisions by default for good accuracy
-- Data is binned into 50 bins for histogram visualization
-- Range is set to [-10, 10] to encompass all data
+## Parameters Used
+- **Normal**: mean = -2.0, sigma = 1.0
+- **Cauchy-Lorentz**: x₀ = -2.0, γ = 0.82
+- **Crystal Ball**: mean = -2.0, sigma = 1.0, alpha = 80.0, n = 2.5
+- **Range**: [-10, 10]
+- **Integration divisions**: 1000
+- **Histogram bins**: 50
+
