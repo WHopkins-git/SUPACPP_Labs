@@ -111,14 +111,16 @@ int main() {
     }
 
     std::cout << "\n==================================================" << std::endl;
-    std::cout << "Best Fit: Cauchy-Lorentz Distribution" << std::endl;
+    std::cout << "Best Fit: Crystal Ball Distribution" << std::endl;
     std::cout << "==================================================" << std::endl;
     {
-        double x0 = 0.0;
-        double gamma = 1.0;
+        double mean = -2.0;
+        double sigma = 1.0;
+        double alpha = 80.0;
+        double n = 2.5;
 
-        CauchyLorentzDistribution best_fit(x0, gamma, range_min, range_max,
-                                          "BestFit_CauchyLorentz");
+        CrystalBallDistribution best_fit(mean, sigma, alpha, n, range_min, range_max,
+                                        "BestFit_CrystalBall");
         best_fit.integral(n_divisions);
         best_fit.printInfo();
 
