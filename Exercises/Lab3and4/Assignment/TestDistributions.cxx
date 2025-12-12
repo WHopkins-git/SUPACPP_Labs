@@ -62,7 +62,7 @@ int main() {
         double mean = -2.0;
         double sigma = 1.0;
 
-        NormalDistribution normal(mean, sigma, range_min, range_max, "Normal_Test");
+        NormalDistribution normal(mean, sigma, range_min, range_max, "NormalTest");
         normal.integral(n_divisions);
         normal.printInfo();
 
@@ -79,7 +79,7 @@ int main() {
         double x0 = -2.0;
         double gamma = 0.82;
 
-        CauchyLorentzDistribution cauchy(x0, gamma, range_min, range_max, "CauchyLorentz_Test");
+        CauchyLorentzDistribution cauchy(x0, gamma, range_min, range_max, "CauchyLorentzTest");
         cauchy.integral(n_divisions);
         cauchy.printInfo();
 
@@ -99,7 +99,7 @@ int main() {
         double n = 2.5;
 
         CrystalBallDistribution crystal(mean, sigma, alpha, n, range_min, range_max,
-                                       "CrystalBall_Test");
+                                       "CrystalBallTest");
         crystal.integral(n_divisions);
         crystal.printInfo();
 
@@ -116,7 +116,7 @@ int main() {
         double mean = -2.0;
         double sigma = 1.0;
 
-        NormalDistribution best_fit(mean, sigma, range_min, range_max, "BestFit_Normal");
+        NormalDistribution best_fit(mean, sigma, range_min, range_max, "BestFitNormal");
         best_fit.integral(n_divisions);
         best_fit.printInfo();
 
