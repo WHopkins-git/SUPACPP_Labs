@@ -1,0 +1,10 @@
+# Compiled executables
+TestDistributions
+TestDefaultFunction
+
+# Object files
+*.o
+
+# Output files and directories
+../Outputs/
+Plots/

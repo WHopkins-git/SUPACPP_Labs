@@ -1,0 +1,9 @@
+# Output files and directories
+Outputs/
+
+# Compiled executables
+TestFiniteFunctions
+Assignment/TestDistributions
+
+# Object files
+*.o

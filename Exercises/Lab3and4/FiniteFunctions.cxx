@@ -62,8 +62,20 @@ Integration by hand (output needed to normalise function when plotting)
 ###################
 */ 
 double FiniteFunction::integrate(int Ndiv){ //private
-  //ToDo write an integrator
-  return -99;  
+  // Numerical integration using trapezoidal rule
+  double step = (m_RMax - m_RMin) / (double)Ndiv;
+  double sum = 0.0;
+
+  // Sum up the areas of trapezoids
+  for (int i = 0; i < Ndiv; i++) {
+    double x1 = m_RMin + i * step;
+    double x2 = m_RMin + (i + 1) * step;
+    double y1 = this->callFunction(x1);
+    double y2 = this->callFunction(x2);
+    sum += (y1 + y2) * step / 2.0;  // Area of trapezoid
+  }
+
+  return sum;
 }
 double FiniteFunction::integral(int Ndiv) { //public
   if (Ndiv <= 0){
@@ -181,7 +193,7 @@ void FiniteFunction::generatePlot(Gnuplot &gp){
 
   if (m_plotfunction==true && m_plotdatapoints==true && m_plotsamplepoints==true){
     gp << "set terminal pngcairo\n";
-    gp << "set output 'Outputs/png/"<<m_FunctionName<<".png'\n"; 
+    gp << "set output 'Plots/"<<m_FunctionName<<".png'\n"; 
     gp << "set xrange ["<<m_RMin<<":"<<m_RMax<<"]\n";
     gp << "set style line 1 lt 1 lw 2 pi 1 ps 0\n";
     gp << "plot '-' with linespoints ls 1 title '"<<m_FunctionName<<"', '-' with points ps 2 lc rgb 'blue' title 'sampled data', '-' with points ps 1 lc rgb 'black' pt 7 title 'data'\n";
@@ -191,7 +203,7 @@ void FiniteFunction::generatePlot(Gnuplot &gp){
   }
   else if (m_plotfunction==true && m_plotdatapoints==true){
     gp << "set terminal pngcairo\n";
-    gp << "set output 'Outputs/png/"<<m_FunctionName<<".png'\n"; 
+    gp << "set output 'Plots/"<<m_FunctionName<<".png'\n"; 
     gp << "set xrange ["<<m_RMin<<":"<<m_RMax<<"]\n";
     gp << "set style line 1 lt 1 lw 2 pi 1 ps 0\n";
     gp << "plot '-' with linespoints ls 1 title '"<<m_FunctionName<<"', '-' with points ps 1 lc rgb 'black' pt 7 title 'data'\n";
@@ -200,7 +212,7 @@ void FiniteFunction::generatePlot(Gnuplot &gp){
   }
   else if (m_plotfunction==true && m_plotsamplepoints==true){
     gp << "set terminal pngcairo\n";
-    gp << "set output 'Outputs/png/"<<m_FunctionName<<".png'\n"; 
+    gp << "set output 'Plots/"<<m_FunctionName<<".png'\n"; 
     gp << "set xrange ["<<m_RMin<<":"<<m_RMax<<"]\n";
     gp << "set style line 1 lt 1 lw 2 pi 1 ps 0\n";
     gp << "plot '-' with linespoints ls 1 title '"<<m_FunctionName<<"', '-' with points ps 2 lc rgb 'blue' title 'sampled data'\n";
@@ -209,7 +221,7 @@ void FiniteFunction::generatePlot(Gnuplot &gp){
   }
   else if (m_plotfunction==true){
     gp << "set terminal pngcairo\n";
-    gp << "set output 'Outputs/png/"<<m_FunctionName<<".png'\n"; 
+    gp << "set output 'Plots/"<<m_FunctionName<<".png'\n"; 
     gp << "set xrange ["<<m_RMin<<":"<<m_RMax<<"]\n";
     gp << "set style line 1 lt 1 lw 2 pi 1 ps 0\n";
     gp << "plot '-' with linespoints ls 1 title 'function'\n";
@@ -218,7 +230,7 @@ void FiniteFunction::generatePlot(Gnuplot &gp){
 
   else if (m_plotdatapoints == true){
     gp << "set terminal pngcairo\n";
-    gp << "set output 'Outputs/png/"<<m_FunctionName<<".png'\n"; 
+    gp << "set output 'Plots/"<<m_FunctionName<<".png'\n"; 
     gp << "set xrange ["<<m_RMin<<":"<<m_RMax<<"]\n";
     gp << "plot '-' with points ps 1 lc rgb 'black' pt 7 title 'data'\n";
     gp.send1d(m_data);
@@ -226,7 +238,7 @@ void FiniteFunction::generatePlot(Gnuplot &gp){
 
   else if (m_plotsamplepoints == true){
     gp << "set terminal pngcairo\n";
-    gp << "set output 'Outputs/png/"<<m_FunctionName<<".png'\n"; 
+    gp << "set output 'Plots/"<<m_FunctionName<<".png'\n"; 
     gp << "set xrange ["<<m_RMin<<":"<<m_RMax<<"]\n";
     gp << "plot '-' with points ps 2 lc rgb 'blue' title 'sampled data'\n";
     gp.send1d(m_samples);
